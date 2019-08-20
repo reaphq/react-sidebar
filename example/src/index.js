@@ -28,13 +28,18 @@ class App extends React.Component {
       shadow: true,
       pullRight: false,
       touchHandleWidth: 20,
-      dragToggleDistance: 30
+      dragToggleDistance: 30,
     };
 
     this.renderPropCheckbox = this.renderPropCheckbox.bind(this);
     this.renderPropNumber = this.renderPropNumber.bind(this);
     this.onSetOpen = this.onSetOpen.bind(this);
     this.menuButtonClick = this.menuButtonClick.bind(this);
+    this.handleScroll = this.handleScroll.bind(this)
+  }
+
+  componentDidMount() {
+    this.contentElement.addEventListener('scroll', this.handleScroll);
   }
 
   onSetOpen(open) {
@@ -44,6 +49,11 @@ class App extends React.Component {
   menuButtonClick(ev) {
     ev.preventDefault();
     this.onSetOpen(!this.state.open);
+  }
+
+  handleScroll(e) {
+    console.log(this.state);
+    console.log('go here: ', e.target.scrollTop)
   }
 
   renderPropCheckbox(prop) {
@@ -113,11 +123,12 @@ class App extends React.Component {
       touchHandleWidth: this.state.touchHandleWidth,
       dragToggleDistance: this.state.dragToggleDistance,
       transitions: this.state.transitions,
-      onSetOpen: this.onSetOpen
+      onSetOpen: this.onSetOpen,
+      contentRef: React.createRef(),
     };
 
     return (
-      <Sidebar {...sidebarProps}>
+      <Sidebar {...sidebarProps} contentRef={el => this.contentElement = el}>
         <MaterialTitlePanel title={contentHeader}>
           <div style={styles.content}>
             <p>

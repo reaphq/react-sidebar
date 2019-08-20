@@ -373,6 +373,7 @@ class Sidebar extends Component {
           className={this.props.contentClassName}
           style={contentStyle}
           id={this.props.contentId}
+          ref={this.props.contentRef}
         >
           {dragHandle}
           {this.props.children}
@@ -448,6 +449,9 @@ Sidebar.propTypes = {
 
   // content optional id
   contentId: PropTypes.string,
+
+  // content optional ref
+  contentRef: PropTypes.any,
 
   // overlay optional id
   overlayId: PropTypes.string
